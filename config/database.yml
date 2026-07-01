@@ -62,8 +62,3 @@ test:
 production:
   <<: *default
   url: <%= ENV["DATABASE_URL"] %>
-  database: <%= ENV.fetch("POSTGRES_DB", "team_generator_production") %>
-  username: <%= ENV.fetch("POSTGRES_USER", "team_generator") %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
-  host: <%= ENV.fetch("DATABASE_HOST", "127.0.0.1") %>
-  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
