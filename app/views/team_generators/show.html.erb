@@ -1,0 +1,59 @@
+<header class="team-generator-heading mb-4">
+  <div class="team-generator-heading__eyebrow">Resultado</div>
+  <div class="team-generator-heading__row">
+    <div>
+      <h1 class="team-generator-heading__title">Times gerados</h1>
+      <p class="team-generator-heading__subtitle">
+        Balanceamento baseado na soma dos níveis técnicos.
+      </p>
+    </div>
+    <div class="team-generator-heading__rule" aria-hidden="true">
+      <span class="team-generator-heading__dot"></span>
+      <span class="team-generator-heading__line"></span>
+      <span class="team-generator-heading__dot"></span>
+    </div>
+  </div>
+</header>
+
+<% if @teams.any? %>
+  <div class="row g-4">
+    <% @teams.each_with_index do |team, index| %>
+      <div class="col-12 col-lg-6">
+        <div class="app-card p-4 h-100">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 class="h5 mb-0">Time <%= index + 1 %></h2>
+            <span class="badge text-bg-primary"><%= team.sum { |athlete| athlete["level"].to_i } %> pontos</span>
+          </div>
+          <ul class="list-group list-group-flush">
+            <% team.each do |athlete| %>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <span><%= athlete["name"] %></span>
+                <span class="badge text-bg-light">Nível <%= athlete["level"] %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-light soft-border">Nenhum resultado para exibir.</div>
+<% end %>
+
+<div class="app-card p-4 mt-4">
+  <h2 class="h5 section-title mb-3">Bench</h2>
+  <% if @bench.any? %>
+    <div class="d-flex flex-wrap gap-2">
+      <% @bench.each do |athlete| %>
+        <span class="badge text-bg-secondary fs-6"><%= athlete["name"] %></span>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-body-secondary">Nenhum atleta no bench.</div>
+  <% end %>
+
+  <div class="team-generator-actions d-flex flex-column flex-sm-row gap-2 mt-4">
+    <%= link_to "Gerar novamente", new_team_generator_path(team_generator: { athlete_ids: @selected_athlete_ids, team_size: @team_size }), class: "btn btn-primary" %>
+    <%= link_to "Voltar", root_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<%= render "shared/page_header",
+  eyebrow: "Cadastro",
+  title: "Atletas",
+  subtitle: "Controle os atletas regulares e convidados em uma estrutura única.",
+  actions: link_to("Novo atleta", new_athlete_path, class: "btn btn-light btn-lg fw-semibold px-4"),
+  stats: [
+    { label: "Total", value: @regular_athletes.size + @guest_athletes.size },
+    { label: "Regulares", value: @regular_athletes.size },
+    { label: "Convidados", value: @guest_athletes.size }
+  ] %>
+
+<ul class="nav nav-pills nav-pills-clean mb-4" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#regular-athletes" type="button" role="tab">
+      Regulares <span class="badge text-bg-light ms-2"><%= @regular_athletes.size %></span>
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#guest-athletes" type="button" role="tab">
+      Convidados <span class="badge text-bg-light ms-2"><%= @guest_athletes.size %></span>
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="regular-athletes" role="tabpanel">
+    <% if @regular_athletes.any? %>
+      <%= render "athlete_table", athletes: @regular_athletes %>
+    <% else %>
+      <div class="app-card p-4 text-body-secondary">Nenhum atleta regular cadastrado.</div>
+    <% end %>
+  </div>
+
+  <div class="tab-pane fade" id="guest-athletes" role="tabpanel">
+    <% if @guest_athletes.any? %>
+      <%= render "athlete_table", athletes: @guest_athletes %>
+    <% else %>
+      <div class="app-card p-4 text-body-secondary">Nenhum atleta convidado cadastrado.</div>
+    <% end %>
+  </div>
+</div>

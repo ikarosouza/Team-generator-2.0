@@ -1,0 +1,36 @@
+<%= form_with model: athlete, class: "app-card p-4" do |form| %>
+  <% if athlete.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Revise os campos abaixo.</strong>
+      <ul class="mb-0">
+        <% athlete.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <%= form.label :name, "Nome", class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", placeholder: "Ex.: João Silva" %>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <%= form.label :level, "Nível técnico", class: "form-label" %>
+      <%= form.select :level, options_for_select((0..5).map { |value| ["#{value}", value] }, athlete.level), {}, class: "form-select" %>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-end">
+      <div class="form-check form-switch">
+        <%= form.check_box :guest, class: "form-check-input", role: "switch" %>
+        <%= form.label :guest, "Convidado", class: "form-check-label" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= form.submit "Salvar atleta", class: "btn btn-primary" %>
+    <%= link_to "Cancelar", athletes_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>

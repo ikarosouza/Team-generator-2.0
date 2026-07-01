@@ -1,0 +1,35 @@
+<%= render "shared/page_header",
+  eyebrow: "Agenda",
+  title: "Pelada em #{l(@pickup_game.start_at, format: :long)}",
+  subtitle: "Resumo dos participantes cadastrados." %>
+
+<div class="app-card p-4 mb-4">
+  <p class="mb-2"><strong>Duração:</strong> <%= pluralize(@pickup_game.duration, "hora") %></p>
+  <p class="mb-0"><strong>Participantes:</strong> <%= @pickup_game.athletes.count %></p>
+</div>
+
+<div class="app-card p-4">
+  <h2 class="h5 section-title mb-3">Atletas</h2>
+  <% if @pickup_game.athletes.any? %>
+    <div class="row g-3">
+      <% @pickup_game.athletes.order(guest: :asc, name: :asc).each do |athlete| %>
+        <div class="col-12 col-md-6 col-xl-4">
+          <div class="soft-border rounded-4 p-3 h-100">
+            <div class="fw-semibold"><%= athlete.name %></div>
+            <div class="small text-body-secondary d-flex align-items-center gap-2 mt-1">
+              <span class="badge text-bg-light">Nível <%= athlete.level %></span>
+              <%= athlete_guest_badge(athlete.guest) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-body-secondary">Nenhum atleta associado.</div>
+  <% end %>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= link_to "Editar", edit_pickup_game_path(@pickup_game), class: "btn btn-primary" %>
+    <%= link_to "Voltar", pickup_games_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>

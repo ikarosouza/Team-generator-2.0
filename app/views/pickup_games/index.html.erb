@@ -1,0 +1,14 @@
+<%= render "shared/page_header",
+  eyebrow: "Agenda",
+  title: "Peladas",
+  subtitle: "Cadastre partidas e mantenha os participantes organizados." %>
+
+<div class="d-flex justify-content-end mb-3">
+  <%= link_to "Nova pelada", new_pickup_game_path, class: "btn btn-primary" %>
+</div>
+
+<% if @pickup_games.any? %>
+  <%= render "pickup_game_table", pickup_games: @pickup_games %>
+<% else %>
+  <div class="app-card p-4 text-body-secondary">Nenhuma pelada cadastrada.</div>
+<% end %>

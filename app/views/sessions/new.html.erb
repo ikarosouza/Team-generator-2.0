@@ -1,0 +1,29 @@
+<%= render "shared/page_header",
+  eyebrow: "Acesso",
+  title: "Entrar",
+  subtitle: "Use seu email e senha para acessar seus dados." %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-5">
+    <div class="app-card p-4 p-lg-5">
+      <%= form_with scope: :session, url: session_path, class: "vstack gap-3" do |form| %>
+        <div>
+          <%= form.label :email, class: "form-label" %>
+          <%= form.email_field :email, class: "form-control form-control-lg", autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div>
+          <%= form.label :password, "Senha", class: "form-label" %>
+          <%= form.password_field :password, class: "form-control form-control-lg", autocomplete: "current-password" %>
+        </div>
+
+        <%= form.submit "Entrar", class: "btn btn-primary btn-lg" %>
+      <% end %>
+
+      <p class="text-body-secondary mt-4 mb-0">
+        Não tem conta?
+        <%= link_to "Criar agora", new_user_path %>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<header class="team-generator-heading mb-4">
+  <div class="team-generator-heading__eyebrow">Balanceamento</div>
+  <div class="team-generator-heading__row">
+    <div>
+      <h1 class="team-generator-heading__title">Gerar times</h1>
+      <p class="team-generator-heading__subtitle">
+        Escolha os atletas, defina o tamanho do time e deixe o balanceamento montar a distribuição.
+      </p>
+    </div>
+    <div class="team-generator-heading__rule" aria-hidden="true">
+      <span class="team-generator-heading__dot"></span>
+      <span class="team-generator-heading__line"></span>
+      <span class="team-generator-heading__dot"></span>
+    </div>
+  </div>
+</header>
+
+<%= render "team_generators/form",
+  team_size: @team_size,
+  regular_athletes: @regular_athletes,
+  guest_athletes: @guest_athletes,
+  selected_ids: Array(@selected_athlete_ids) %>

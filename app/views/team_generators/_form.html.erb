@@ -1,0 +1,77 @@
+<%= form_with url: team_generator_path, method: :post, class: "vstack gap-4", data: { controller: "selection" } do %>
+  <section class="app-card p-4 p-lg-5 team-control">
+    <div class="team-control__head">
+      <div>
+        <div class="team-control__eyebrow">Configuração</div>
+        <h2 class="team-control__title">Defina o formato da partida</h2>
+        <p class="team-control__description">
+          O sistema usa a lista selecionada e tenta equilibrar os grupos pela soma dos níveis.
+        </p>
+      </div>
+
+      <div class="team-control__actions team-generator-actions">
+        <%= submit_tag "Gerar times", class: "btn btn-primary btn-lg px-4" %>
+      </div>
+    </div>
+
+    <div class="team-control__grid">
+      <div class="team-control__field">
+        <label class="form-label team-control__label" for="team_size">Atletas por time</label>
+        <select name="team_generator[team_size]" id="team_size" class="form-select form-select-lg team-control__select">
+          <% (2..8).each do |size| %>
+            <option value="<%= size %>" <%= "selected" if size == team_size %>><%= size %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="team-control__note">
+        <span class="team-control__note-label">Regra de corte</span>
+        <p class="mb-0">
+          O mínimo para gerar dois times é <strong>2 x o tamanho do time</strong>. Se sobrar gente, ela vai para o bench.
+        </p>
+      </div>
+    </div>
+
+    <div class="team-control__bulk">
+      <label class="team-control__bulk-toggle" for="select_all_athletes">
+        <input
+          type="checkbox"
+          id="select_all_athletes"
+          class="form-check-input"
+          data-selection-target="toggle"
+          data-action="selection#toggleAll"
+        >
+        <span>Marcar todos os atletas</span>
+      </label>
+      <p class="team-control__bulk-note mb-0">
+        Use essa opção para selecionar ou limpar a lista inteira de uma vez.
+      </p>
+    </div>
+  </section>
+
+  <section class="app-card p-4 team-section">
+    <div class="team-section__head">
+    <div>
+      <h2 class="team-section__title">Atletas regulares</h2>
+      <p class="team-section__meta mb-0"><%= regular_athletes.size %> cadastrados</p>
+    </div>
+    <span class="team-section__badge">Base principal</span>
+    </div>
+    <%= render "team_generators/athlete_checklist", athletes: regular_athletes, selected_ids: selected_ids %>
+  </section>
+
+  <section class="app-card p-4 team-section">
+    <div class="team-section__head">
+      <div>
+        <h2 class="team-section__title">Convidados</h2>
+        <p class="team-section__meta mb-0"><%= guest_athletes.size %> cadastrados</p>
+      </div>
+      <span class="team-section__badge team-section__badge--guest">Reserva</span>
+    </div>
+    <%= render "team_generators/athlete_checklist", athletes: guest_athletes, selected_ids: selected_ids %>
+  </section>
+
+  <div class="team-generator-actions d-flex justify-content-start">
+    <%= submit_tag "Gerar times", class: "btn btn-primary btn-lg px-4" %>
+  </div>
+<% end %>

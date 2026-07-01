@@ -1,0 +1,50 @@
+<%= render "shared/page_header",
+  eyebrow: "Cadastro",
+  title: "Criar conta",
+  subtitle: "Cada conta guarda seus atletas, peladas e times de forma isolada." %>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-5">
+    <div class="app-card p-4 p-lg-5">
+      <%= form_with model: @user, url: users_path, class: "vstack gap-3" do |form| %>
+        <% if @user.errors.any? %>
+          <div class="alert alert-danger">
+            <strong>Corrija os campos abaixo:</strong>
+            <ul class="mb-0 mt-2">
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= form.label :name, "Nome", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control form-control-lg", autocomplete: "name" %>
+        </div>
+
+        <div>
+          <%= form.label :email, class: "form-label" %>
+          <%= form.email_field :email, class: "form-control form-control-lg", autocomplete: "email" %>
+        </div>
+
+        <div>
+          <%= form.label :password, "Senha", class: "form-label" %>
+          <%= form.password_field :password, class: "form-control form-control-lg", autocomplete: "new-password" %>
+        </div>
+
+        <div>
+          <%= form.label :password_confirmation, "Confirmar senha", class: "form-label" %>
+          <%= form.password_field :password_confirmation, class: "form-control form-control-lg", autocomplete: "new-password" %>
+        </div>
+
+        <%= form.submit "Criar conta", class: "btn btn-primary btn-lg" %>
+      <% end %>
+
+      <p class="text-body-secondary mt-4 mb-0">
+        Já tem conta?
+        <%= link_to "Entrar", new_session_path %>
+      </p>
+    </div>
+  </div>
+</div>

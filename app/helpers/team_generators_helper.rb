@@ -1,0 +1,2 @@
+module TeamGeneratorsHelper
+end

@@ -1,0 +1,26 @@
+<div class="roster-shell">
+  <% athletes.each do |athlete| %>
+    <article class="roster-card">
+      <div>
+        <div class="roster-card__level mb-2">Nome do atleta</div>
+        <div class="roster-card__name"><%= athlete.name %></div>
+      </div>
+
+      <div>
+        <div class="roster-card__level mb-2">Nível</div>
+        <div class="level-icons"><%= athlete_level_icons(athlete.level) %></div>
+      </div>
+
+      <div>
+        <div class="roster-card__level mb-2">Status</div>
+        <div><%= athlete_guest_badge(athlete.guest) %></div>
+      </div>
+
+      <div class="roster-card__actions">
+        <%= link_to "Ver", athlete_path(athlete), class: "btn btn-sm btn-soft px-3" %>
+        <%= link_to "Editar", edit_athlete_path(athlete), class: "btn btn-sm btn-outline-primary px-3" %>
+        <%= button_to "Excluir", athlete_path(athlete), method: :delete, class: "btn btn-sm btn-outline-danger px-3", form: { class: "d-inline", data: { turbo_confirm: "Remover este atleta?" } } %>
+      </div>
+    </article>
+  <% end %>
+</div>

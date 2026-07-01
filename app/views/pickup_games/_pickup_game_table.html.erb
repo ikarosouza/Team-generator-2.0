@@ -1,0 +1,62 @@
+<div class="pickup-game-list d-lg-none">
+  <% pickup_games.each do |pickup_game| %>
+    <article class="pickup-game-card app-card p-3">
+      <div class="pickup-game-card__top">
+        <div>
+          <div class="pickup-game-card__label">Data e hora</div>
+          <div class="pickup-game-card__title"><%= l(pickup_game.start_at, format: :short) if pickup_game.start_at.present? %></div>
+        </div>
+
+        <span class="badge text-bg-light">#<%= pickup_game.id %></span>
+      </div>
+
+      <div class="pickup-game-card__stats">
+        <div>
+          <div class="pickup-game-card__label">Duração</div>
+          <div class="pickup-game-card__value"><%= pluralize(pickup_game.duration, "hora") %></div>
+        </div>
+        <div>
+          <div class="pickup-game-card__label">Atletas</div>
+          <div class="pickup-game-card__value"><%= pickup_game.athletes.size %></div>
+        </div>
+      </div>
+
+      <div class="pickup-game-card__actions">
+        <%= link_to "Ver", pickup_game_path(pickup_game), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "Editar", edit_pickup_game_path(pickup_game), class: "btn btn-outline-primary btn-sm" %>
+        <%= button_to "Excluir", pickup_game_path(pickup_game), method: :delete, class: "btn btn-outline-danger btn-sm", form: { class: "d-inline", data: { turbo_confirm: "Remover esta pelada?" } } %>
+      </div>
+    </article>
+  <% end %>
+</div>
+
+<div class="app-card p-0 overflow-hidden d-none d-lg-block">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Data e hora</th>
+          <th>Duração</th>
+          <th>Atletas</th>
+          <th class="text-end">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pickup_games.each do |pickup_game| %>
+          <tr>
+            <td class="fw-semibold"><%= l(pickup_game.start_at, format: :short) if pickup_game.start_at.present? %></td>
+            <td><%= pluralize(pickup_game.duration, "hora") %></td>
+            <td><%= pickup_game.athletes.size %></td>
+            <td class="text-end">
+              <div class="btn-group btn-group-sm" role="group">
+                <%= link_to "Ver", pickup_game_path(pickup_game), class: "btn btn-outline-secondary" %>
+                <%= link_to "Editar", edit_pickup_game_path(pickup_game), class: "btn btn-outline-primary" %>
+                <%= button_to "Excluir", pickup_game_path(pickup_game), method: :delete, class: "btn btn-outline-danger", form: { class: "d-inline", data: { turbo_confirm: "Remover esta pelada?" } } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

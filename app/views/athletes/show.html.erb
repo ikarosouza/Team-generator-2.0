@@ -1,0 +1,15 @@
+<%= render "shared/page_header",
+  eyebrow: "Cadastro",
+  title: @athlete.name,
+  subtitle: "Nível técnico e status do atleta." %>
+
+<div class="app-card p-4">
+  <p class="mb-2"><strong>Nível:</strong> <span class="level-icons"><%= athlete_level_icons(@athlete.level) %></span></p>
+  <p class="mb-2"><strong>Status:</strong> <%= athlete_guest_badge(@athlete.guest) %></p>
+  <p class="mb-0"><strong>Peladas associadas:</strong> <%= @athlete.pickup_games.size %></p>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= link_to "Editar", edit_athlete_path(@athlete), class: "btn btn-primary" %>
+    <%= link_to "Voltar", athletes_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>

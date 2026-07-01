@@ -1,0 +1,18 @@
+<% if athletes.any? %>
+  <div class="selection-grid">
+    <% athletes.each do |athlete| %>
+      <label class="selection-card">
+        <%= check_box_tag "team_generator[athlete_ids][]", athlete.id, selected_ids.include?(athlete.id.to_s), class: "selection-card__check form-check-input", data: { selection_target: "item", action: "change->selection#syncToggleState" } %>
+        <div class="selection-card__body">
+          <div class="selection-card__name"><%= athlete.name %></div>
+          <div class="selection-card__meta">
+            <span class="selection-card__level">Nível <%= athlete.level %></span>
+            <%= athlete_guest_badge(athlete.guest) %>
+          </div>
+        </div>
+      </label>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-light soft-border mb-0">Cadastre atletas antes de gerar times.</div>
+<% end %>

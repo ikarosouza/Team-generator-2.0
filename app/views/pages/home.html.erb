@@ -1,0 +1,60 @@
+<%= render "shared/page_header",
+  eyebrow: "Team Generator",
+  title: "Organize peladas e monte times equilibrados",
+  subtitle: "Base Rails com login, dados por usuário e geração balanceada de times." %>
+
+<% if logged_in? %>
+  <div class="row g-4">
+    <div class="col-12 col-lg-4">
+      <div class="app-card p-4 h-100">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 class="h5 mb-0">Atletas</h2>
+          <span class="badge text-bg-light"><%= @athletes_count %></span>
+        </div>
+        <p class="text-body-secondary">Cadastre atletas, classifique o nível técnico e separe convidados de regulares.</p>
+        <%= link_to "Gerenciar atletas", athletes_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="app-card p-4 h-100">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 class="h5 mb-0">Peladas</h2>
+          <span class="badge text-bg-light"><%= @pickup_games_count %></span>
+        </div>
+        <p class="text-body-secondary">Registre data, horário, duração e participantes de cada jogo.</p>
+        <%= link_to "Gerenciar peladas", pickup_games_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="app-card p-4 h-100">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 class="h5 mb-0">Times</h2>
+          <span class="badge text-bg-light"><%= @team_generator_ready ? "Pronto" : "Faltam atletas" %></span>
+        </div>
+        <p class="text-body-secondary">Selecione atletas e gere times balanceados com banco para excedentes.</p>
+        <%= link_to "Gerar times", new_team_generator_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="app-card p-4 p-lg-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-12 col-lg-7">
+        <h2 class="h3 mb-3">Acesso privado por conta</h2>
+        <p class="text-body-secondary mb-0">
+          Cada usuário visualiza apenas seus atletas, suas peladas e seus times gerados.
+          Crie uma conta para começar ou entre com um login existente.
+        </p>
+      </div>
+
+      <div class="col-12 col-lg-5">
+        <div class="d-grid gap-2">
+          <%= link_to "Entrar", new_session_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "Criar conta", new_user_path, class: "btn btn-outline-primary btn-lg" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

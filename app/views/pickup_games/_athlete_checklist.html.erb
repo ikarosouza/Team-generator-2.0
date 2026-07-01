@@ -1,0 +1,20 @@
+<% if athletes.any? %>
+  <div class="row g-3">
+    <% athletes.each do |athlete| %>
+      <div class="col-12 col-md-6 col-xl-4">
+        <label class="app-card p-3 w-100 h-100 d-flex align-items-start gap-2">
+          <%= check_box_tag "pickup_game[athlete_ids][]", athlete.id, form.object.athletes.exists?(athlete.id), class: "form-check-input mt-1" %>
+          <div>
+            <div class="fw-semibold"><%= athlete.name %></div>
+            <div class="small text-body-secondary d-flex align-items-center gap-2">
+              <span class="badge text-bg-light">Nível <%= athlete.level %></span>
+              <%= athlete_guest_badge(athlete.guest) %>
+            </div>
+          </div>
+        </label>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-light soft-border mb-0"><%= empty_message %></div>
+<% end %>
